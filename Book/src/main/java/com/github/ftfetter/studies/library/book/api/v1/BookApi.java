@@ -1,5 +1,6 @@
 package com.github.ftfetter.studies.library.book.api.v1;
 
+import com.github.ftfetter.studies.library.book.entity.Book;
 import com.github.ftfetter.studies.library.book.entity.mapper.BookMapper;
 import com.github.ftfetter.studies.library.book.exception.InternalServerErrorException;
 import com.github.ftfetter.studies.library.book.input.BookInput;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @RequestMapping("/v1/books")
 public class BookApi {
 
@@ -26,7 +29,7 @@ public class BookApi {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllBooks() {
+    public ResponseEntity<List<Book>> getAllBooks() {
         try {
             return ResponseEntity.ok(bookService.getAllBooks());
         } catch (Exception e) {
@@ -35,7 +38,7 @@ public class BookApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getBookById(@PathVariable("id") String id) {
+    public ResponseEntity<Book> getBookById(@PathVariable("id") String id) {
         try {
             return bookService.getBookById(id)
                     .map(ResponseEntity::ok)
@@ -46,18 +49,18 @@ public class BookApi {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveBook(@RequestBody BookInput input) {
+    public ResponseEntity<Book> saveBook(@RequestBody BookInput input) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(bookService.setBook(BookMapper.map(input)));
+            return ResponseEntity.status(HttpStatus.CREATED).body(bookService.saveBook(BookMapper.map(input)));
         } catch (Exception e) {
             throw new InternalServerErrorException(e.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> alterBook(@PathVariable("id") String id, @RequestBody BookInput input) {
+    public ResponseEntity<Book> updateBook(@PathVariable("id") String id, @RequestBody BookInput input) {
         try {
-            return ResponseEntity.ok(bookService.alterBook(id, input));
+            return ResponseEntity.ok(bookService.updateBook(id, input));
         } catch (RuntimeException re) {
             throw re;
         } catch (Exception e) {
@@ -66,7 +69,7 @@ public class BookApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> getAllBooks(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteBook(@PathVariable("id") String id) {
         try {
             bookService.deleteBook(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
