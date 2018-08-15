@@ -1,6 +1,7 @@
 package com.github.ftfetter.studies.library.user.config;
 
 import com.github.ftfetter.studies.library.user.repository.UserRepository;
+import com.github.ftfetter.studies.library.user.service.UserService;
 import com.mongodb.MongoClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,5 +23,10 @@ public class UserConfig {
     @Bean
     public UserRepository userRepository() {
         return new UserRepository(mongoTemplate());
+    }
+
+    @Bean
+    public UserService userService() {
+        return new UserService(userRepository());
     }
 }
