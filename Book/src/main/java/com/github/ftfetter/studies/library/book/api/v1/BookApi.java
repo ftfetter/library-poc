@@ -29,7 +29,7 @@ public class BookApi {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<?> getAllBooks() {
         try {
             return ResponseEntity.ok(bookService.getAllBooks());
         } catch (Exception e) {
@@ -38,7 +38,7 @@ public class BookApi {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBookById(@PathVariable("id") String id) {
+    public ResponseEntity<?> getBookById(@PathVariable("id") String id) {
         try {
             return bookService.getBookById(id)
                     .map(ResponseEntity::ok)
@@ -49,7 +49,7 @@ public class BookApi {
     }
 
     @PostMapping
-    public ResponseEntity<Book> saveBook(@RequestBody BookInput input) {
+    public ResponseEntity<?> saveBook(@RequestBody BookInput input) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(bookService.saveBook(BookMapper.map(input)));
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class BookApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable("id") String id, @RequestBody BookInput input) {
+    public ResponseEntity<?> updateBook(@PathVariable("id") String id, @RequestBody BookInput input) {
         try {
             return ResponseEntity.ok(bookService.updateBook(id, input));
         } catch (RuntimeException re) {
