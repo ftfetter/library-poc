@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 class BookApiTest {
 
     private BookApi bookApi;
-
     private BookService bookService;
 
     @BeforeEach
@@ -47,7 +46,7 @@ class BookApiTest {
     @Test
     void getBookByIdTestNoContent() throws Exception {
         when(bookService.getBookById(anyString()))
-                .thenReturn(buildEmptyResult());
+                .thenReturn(buildEmpty());
 
         ResponseEntity response = bookApi.getBookById("");
 
@@ -136,7 +135,7 @@ class BookApiTest {
         assertEquals("exception test", thrown.getMessage());
     }
 
-    private Optional<Book> buildEmptyResult() {
+    private Optional<Book> buildEmpty() {
         return Optional.empty();
     }
 
