@@ -1,5 +1,6 @@
 package com.github.ftfetter.studies.library.user.config;
 
+import com.github.ftfetter.studies.library.user.api.v1.UserApi;
 import com.github.ftfetter.studies.library.user.repository.UserRepository;
 import com.github.ftfetter.studies.library.user.service.UserService;
 import com.mongodb.MongoClient;
@@ -28,5 +29,10 @@ public class UserConfig {
     @Bean
     public UserService userService() {
         return new UserService(userRepository());
+    }
+
+    @Bean
+    public UserApi userApi() {
+        return new UserApi(userService());
     }
 }

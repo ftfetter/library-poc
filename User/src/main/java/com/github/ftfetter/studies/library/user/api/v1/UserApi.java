@@ -55,7 +55,7 @@ public class UserApi {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateBook(@PathVariable("id") String id, @RequestBody UserInput input) {
+    public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody UserInput input) {
         try {
             return ResponseEntity.ok(userService.updateUser(id, input));
         } catch (RuntimeException re) {
@@ -66,7 +66,7 @@ public class UserApi {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBook(@PathVariable("id") String id) {
+    public ResponseEntity<?> deleteUser(@PathVariable("id") String id) {
         try {
             userService.deleteUser(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

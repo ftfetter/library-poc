@@ -40,7 +40,7 @@ public class UserService {
 
     public User deleteUser(String id) throws Exception {
         User userFound = userRepository.findById(id)
-                .orElseThrow(() -> new ExpectationFailedException("Nenhum usuário foi encontrado para alteração."));
+                .orElseThrow(() -> new ExpectationFailedException("Nenhum usuário foi encontrado para remoção."));
         return userRepository.delete(userFound);
     }
 }
