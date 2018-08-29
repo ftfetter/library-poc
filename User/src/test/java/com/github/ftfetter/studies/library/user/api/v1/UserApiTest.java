@@ -3,8 +3,10 @@ package com.github.ftfetter.studies.library.user.api.v1;
 import com.github.ftfetter.studies.library.user.entity.User;
 import com.github.ftfetter.studies.library.user.exception.ExpectationFailedException;
 import com.github.ftfetter.studies.library.user.exception.InternalServerErrorException;
-import com.github.ftfetter.studies.library.user.input.UserInput;
+import com.github.ftfetter.studies.library.user.input.UserRegistrationInput;
+import com.github.ftfetter.studies.library.user.input.UserUpdateInput;
 import com.github.ftfetter.studies.library.user.service.UserService;
+import com.github.ftfetter.studies.library.user.type.UserSituation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -71,31 +73,31 @@ class UserApiTest {
 
         InternalServerErrorException thrown = assertThrows(
                 InternalServerErrorException.class,
-                () -> userApi.saveUser(buildUserInput())
+                () -> userApi.saveUser(buildUserRegistrationInput())
         );
         assertEquals("exception test", thrown.getMessage());
     }
 
     @Test
     void alterUserTestExpectetionFailed() throws Exception {
-        when(userService.updateUser(anyString(), any(UserInput.class)))
+        when(userService.updateUser(anyString(), any(UserUpdateInput.class)))
                 .thenThrow(new ExpectationFailedException("exception test"));
 
         ExpectationFailedException thrown = assertThrows(
                 ExpectationFailedException.class,
-                () -> userApi.updateUser("", buildUserInput())
+                () -> userApi.updateUser("", buildUserUpdateInput())
         );
         assertEquals("exception test", thrown.getMessage());
     }
 
     @Test
     void alterUserTestException() throws Exception {
-        when(userService.updateUser(anyString(), any(UserInput.class)))
+        when(userService.updateUser(anyString(), any(UserUpdateInput.class)))
                 .thenThrow(new Exception("exception test"));
 
         Exception thrown = assertThrows(
                 Exception.class,
-                () -> userApi.updateUser("", buildUserInput())
+                () -> userApi.updateUser("", buildUserUpdateInput())
         );
         assertEquals("exception test", thrown.getMessage());
     }
@@ -139,10 +141,14 @@ class UserApiTest {
     }
 
     private User buildUser() {
-        return new User("", 1, LocalDate.now());
+        return new User("", 1, LocalDate.now(), UserSituation.ABLE);
     }
 
-    private UserInput buildUserInput() {
-        return new UserInput();
+    private UserRegistrationInput buildUserRegistrationInput() {
+        return new UserRegistrationInput();
+    }
+
+    private UserUpdateInput buildUserUpdateInput() {
+        return new UserUpdateInput();
     }
 }

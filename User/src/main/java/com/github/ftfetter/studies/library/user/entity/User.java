@@ -1,5 +1,6 @@
 package com.github.ftfetter.studies.library.user.entity;
 
+import com.github.ftfetter.studies.library.user.type.UserSituation;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
@@ -12,11 +13,13 @@ public class User {
     private String name;
     private Integer age;
     private LocalDate registerDate;
+    private UserSituation situation;
 
-    public User(String name, Integer age, LocalDate registerDate) {
+    public User(String name, Integer age, LocalDate registerDate, UserSituation situation) {
         this.name = name;
         this.age = age;
         this.registerDate = registerDate;
+        this.situation = situation;
     }
 
     public String getId() {
@@ -49,5 +52,13 @@ public class User {
 
     public void setRegisterDate(LocalDate registerDate) {
         this.registerDate = registerDate;
+    }
+
+    public UserSituation getSituation() {
+        return situation;
+    }
+
+    public void setSituation(UserSituation situation) {
+        this.situation = situation;
     }
 }

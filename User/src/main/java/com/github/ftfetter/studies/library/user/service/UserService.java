@@ -3,7 +3,7 @@ package com.github.ftfetter.studies.library.user.service;
 import com.github.ftfetter.studies.library.user.entity.User;
 import com.github.ftfetter.studies.library.user.entity.mapper.UserMapper;
 import com.github.ftfetter.studies.library.user.exception.ExpectationFailedException;
-import com.github.ftfetter.studies.library.user.input.UserInput;
+import com.github.ftfetter.studies.library.user.input.UserUpdateInput;
 import com.github.ftfetter.studies.library.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.insert(user);
     }
 
-    public User updateUser(String id, UserInput input) throws Exception {
+    public User updateUser(String id, UserUpdateInput input) throws Exception {
         User updatedUser = userRepository.findById(id)
                 .map(user -> UserMapper.merge(user, input))
                 .orElseThrow(() -> new ExpectationFailedException("Nenhum usuário foi encontrado para alteração."));

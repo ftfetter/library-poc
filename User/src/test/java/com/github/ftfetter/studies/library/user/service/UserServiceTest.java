@@ -2,8 +2,9 @@ package com.github.ftfetter.studies.library.user.service;
 
 import com.github.ftfetter.studies.library.user.entity.User;
 import com.github.ftfetter.studies.library.user.exception.ExpectationFailedException;
-import com.github.ftfetter.studies.library.user.input.UserInput;
+import com.github.ftfetter.studies.library.user.input.UserUpdateInput;
 import com.github.ftfetter.studies.library.user.repository.UserRepository;
+import com.github.ftfetter.studies.library.user.type.UserSituation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -132,10 +133,10 @@ class UserServiceTest {
     }
 
     private User buildUser() {
-        return new User("name", 1, LocalDate.now());
+        return new User("name", 1, LocalDate.now(), UserSituation.ABLE);
     }
 
-    private UserInput buildUserInput() {
-        return new UserInput();
+    private UserUpdateInput buildUserInput() {
+        return new UserUpdateInput();
     }
 }
